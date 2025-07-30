@@ -846,6 +846,9 @@ Function Uninstall-LTService{
 
                 If ($PSCmdlet.ShouldProcess("$UninstallBase\$UninstallEXE", "Execute Agent Uninstall")) {
                     If ((Test-Path "$UninstallBase\$UninstallEXE")) {
+                        # Remove existing Uninstall.exe to avoid overwrite prompt
+                        Remove-Item -Path "$UninstallBase\\Uninstall.exe" -ErrorAction SilentlyContinue
+                        Remove-Item -Path "$UninstallBase\\Uninstall.exe.config" -ErrorAction SilentlyContinue
                         #Run $UninstallEXE
                         Write-Verbose "Launching Agent Uninstaller"
                         Write-Debug "Line $(LINENUM): Executing Command ""$UninstallBase\$UninstallEXE"""
